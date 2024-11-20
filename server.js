@@ -1,41 +1,12 @@
 import express from "express";
-
-const posts = [
-    {
-        id: 1,
-        descricao: "Uma foto teste",
-        imagem: "https://placecats.com/millie/300/150"
-    },
-    {
-        id: 2,
-        descricao: "Gato fazendo yoga",
-        imagem: "https://placecats.com/millie/300/150"
-    },
-    {
-        id: 3,
-        descricao: "Gato fazendo panqueca",
-        imagem: "https://placecats.com/millie/300/150"
-    },
-];
+// Importa o framework Express, que será utilizado para criar o servidor web.
+import routes from "./src/routes/postsRoutes.js";
 
 const app = express();
-app.use(express.json());
+// Cria uma instância do Express, que será o núcleo do nosso servidor.
+routes(app);
 
 app.listen(3000, () => {
     console.log("Servidor escutando...");
-});
-
-app.get("/posts", (req, res) => {
-    res.status(200).json(posts);
-});
-
-function buscarPostPorID(id) {
-    return posts.findIndex((post) => {
-        return post.id === Number(id);
-    });
-}
-
-app.get("/posts/:id", (req, res) => {
-    const index = buscarPostPorID(req.params.id);
-    res.status(200).json(posts[index]);
+    // Inicia o servidor na porta 3000 e exibe uma mensagem no console quando o servidor estiver pronto.
 });
